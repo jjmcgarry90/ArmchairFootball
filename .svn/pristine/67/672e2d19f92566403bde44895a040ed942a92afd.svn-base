@@ -1,0 +1,101 @@
+<resources>
+
+    <!-- Important -->
+    <string name="app_name">Armchair QB</string>
+    <string name="espn">ESPN</string>
+    <string name="gtri">GTRI</string>
+    <string name="copyright">Copyright Information</string>
+
+    <!-- Temp Strings -->
+    <string name="none"></string>
+
+    <!-- General -->
+    <string name="login_facebook">Login with Facebook!</string>
+    <string name="login_email">Email Login</string>
+    <string name="games">Games</string>
+    <string name="huddles">Huddles</string>
+    <string name="friends">Friends</string>
+    <string name="login_description_email">Use any email address to keep track of scores! Simple and easy!</string>
+    <string name="login_description_facebook">Challenge friends by logging in with Facebook.</string>
+    <string name="welcome">Welcome, friend!</string>
+    <string name="login_email_description">Simply enter a unique email address to register! It\'s that easy!</string>
+    <string name="connect">Connect</string>
+    <string name="cancel">Cancel</string>
+    <string name="username_pick">Pick a user name!</string>
+    <string name="save">Save</string>
+    <string name="apply">Apply</string>
+    <string name="login_username_description">The username will be how other users contact you in game, so pick wisely!</string>
+    <string name="login_email_example">john_doe@example.com</string>
+    <string name="login_username_example">John Doe</string>
+    <string name="login_enter_email">Enter an email address.</string>
+    <string name="login_username_enter">Enter a username.</string>
+    <string name="menu_settings">Settings</string>
+    <string name="create_game">New Game</string>
+    <string name="no_friends">You have no friends listed.</string>
+    <string name="add_friend">Add a Friend..</string>
+    <string name="view_profile">View profile</string>
+    <string name="send_message">Send message</string>
+    <string name="remove_friend">Remove from friends</string>
+    
+    	
+    
+    
+    <string-array name="status">
+        <item>Online</item>
+        <item>Away</item>
+        <item>Busy</item>
+        <item>Offline</item>
+    </string-array>
+    
+    <string-array name="main_options">
+        <item>Games</item>
+        <item>Friends</item>
+        <item>Profile</item>
+        <item>Settings</item>
+    </string-array>
+
+    <!-- Activity Names -->
+    <string name="title_activity_layout_activity_main">MainActivity</string>
+    <string name="title_activity_login_screen">LoginScreenActivity</string>
+    <string name="title_activity_facebook">FacebookActivity</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_login_email">LoginEmailActivity</string>
+    <string name="title_activity_login_username">LoginUsernameActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_friends">FriendsActivity</string>
+
+    <!-- Preferences and Settings -->
+    <string name="preferences_file">org.gtri.espn_prefs</string>
+    <string name="firstRun">firstRun</string>
+    <string name="splashActive">splashActive</string>
+    <string name="confirmQuit">confirmQuit</string>
+    <string name="settingsEmail">settings_email</string>
+    <string name="settingsUsername">settings_username</string>
+    <string name="accessToken">access_token</string>
+    <string name="accessExpires">access_expires</string>
+    <string name="email">email</string>
+    <string name="publishStream">publish_stream</string>
+    <string name="LogoutUser">Logout</string>
+    <string name="settings">Settings</string>
+    <string name="splashScreen">Splash screen on start</string>
+    <string name="confirmExit">Confirm on exit</string>
+    <string name="textViewLogout">Logout current user</string>
+
+    <!-- Quit Dialog -->
+    <string name="dialog_quit">Quit</string>
+    <string name="dialog_logout">Logout</string>
+    <string name="dialog_confirm">Are you sure?</string>
+    <string name="dialog_confirm_logout">Are you sure?\nAll local settings on this device will be erased.</string>
+    <string name="dialog_positive">Yes</string>
+    <string name="dialog_negative">No</string>
+    <string name="dialog_logout_description">User logged out.</string>
+
+    <!-- Content Descriptions for Images -->
+    <string name="contentDescription_espn">The ESPN logo</string>
+    <string name="contentDescription_newGame">Click to create a new game!</string>
+    <string name="notification_test">Notification Test</string>
+    <string name="login_type">Login Type</string>
+    <string name="groups">Groups</string>
+   
+
+</resources>

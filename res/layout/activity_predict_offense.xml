@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:id="@+id/offenseLayout"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:background="@color/Tomato"
+     android:orientation="vertical"
+     android:paddingLeft="8dp"
+     android:paddingRight="8dp" >
+
+     <RelativeLayout
+         android:id="@+id/tes1t"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content" >
+
+         <Button
+             android:id="@+id/btnOffense"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentLeft="true"
+             android:layout_alignParentRight="true"
+             android:layout_alignParentTop="true"
+             android:background="@drawable/custom_button"
+             android:text="Offense"
+             android:textColor="@color/White" />
+         
+         <LinearLayout 
+             android:id="@+id/offense_list_twoitem1" 
+             android:layout_height="wrap_content"
+             android:layout_below="@+id/btnOffense"
+             android:layout_marginTop="10dp" 
+             android:layout_width="fill_parent">
+		        <org.gtri.objects.CustomToggle 
+		            android:id="@+id/btnRun" 
+		            android:layout_width="0dp" 
+		            android:layout_weight="1" 
+		            android:layout_height="wrap_content"
+		            android:background="@drawable/custom_toggleoff"
+                    android:text="Run"
+                    android:textColor="@color/White">
+		        </org.gtri.objects.CustomToggle>
+		        <org.gtri.objects.CustomToggle 
+		            android:id="@+id/btnPass" 
+		            android:layout_width="0dp" 
+		            android:layout_weight="1" 
+		            android:layout_marginLeft="7dp"
+		            android:layout_marginRight="7dp"
+		            android:layout_height="wrap_content"
+		            android:background="@drawable/custom_toggleoff"
+                    android:text="Pass"
+                    android:textColor="@color/White">
+		        </org.gtri.objects.CustomToggle>
+		        <org.gtri.objects.CustomToggle 
+		            android:id="@+id/btnKick" 
+		            android:layout_width="0dp" 
+		            android:layout_weight="1" 
+		            android:layout_height="wrap_content"
+		            android:background="@drawable/custom_toggleoff"
+                    android:text="Kick"
+                    android:textColor="@color/White">
+		        </org.gtri.objects.CustomToggle>
+		   </LinearLayout>
+
+         <LinearLayout 
+             android:id="@+id/offense_list_twoitem2" 
+             android:layout_height="wrap_content"
+             android:layout_below="@+id/offense_list_twoitem1"
+             android:layout_marginTop="10dp" 
+             android:layout_width="fill_parent">
+		        <org.gtri.objects.CustomToggle 
+		            android:id="@+id/btnLeft" 
+		            android:layout_width="0dp" 
+		            android:layout_weight="1" 
+		            android:layout_height="wrap_content"
+		            android:background="@drawable/custom_toggleoff"
+                    android:text="Left"
+                    android:textColor="@color/White">
+		        </org.gtri.objects.CustomToggle>
+		        <org.gtri.objects.CustomToggle 
+		            android:id="@+id/btnMiddle" 
+		            android:layout_width="0dp" 
+		            android:layout_weight="1" 
+		            android:layout_marginLeft="7dp"
+		            android:layout_marginRight="7dp"
+		            android:layout_height="wrap_content"
+		            android:background="@drawable/custom_toggleoff"
+                    android:text="Middle"
+                    android:textColor="@color/White">
+		        </org.gtri.objects.CustomToggle>
+		        <org.gtri.objects.CustomToggle 
+		            android:id="@+id/btnRight" 
+		            android:layout_width="0dp" 
+		            android:layout_weight="1" 
+		            android:layout_height="wrap_content"
+		            android:background="@drawable/custom_toggleoff"
+                    android:text="Right"
+                    android:textColor="@color/White">
+		        </org.gtri.objects.CustomToggle>
+		   </LinearLayout>
+
+         
+         <TwoLineListItem
+             xmlns:android="http://schemas.android.com/apk/res/android"
+             android:id="@+id/offense_list_twoitem3"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:layout_alignParentLeft="true"
+             android:layout_below="@+id/offense_list_twoitem2"
+             android:minHeight="?android:attr/listPreferredItemHeight"
+             android:mode="oneLine"
+             android:paddingBottom="2dip"
+             android:paddingTop="2dip" >
+
+             <View
+                    android:id="@+id/strut"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_centerHorizontal="true" />
+             
+              <org.gtri.objects.CustomToggle
+                 android:id="@+id/btnShort"
+                    android:layout_width="0dp"
+                    android:layout_marginLeft="7dp"
+                    android:layout_height="wrap_content"
+                	android:layout_alignLeft="@id/strut"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/custom_toggleoff"
+                    android:text="Short"
+                    android:textColor="@color/White" >
+              </org.gtri.objects.CustomToggle> 
+              
+            <org.gtri.objects.CustomToggle
+	             android:id="@+id/btnLong"
+                    android:layout_width="0dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_height="wrap_content"
+                	android:layout_alignRight="@id/strut"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/custom_toggleoff"
+                    android:text="Long"
+                    android:textColor="@color/White" >
+           	</org.gtri.objects.CustomToggle>
+           	</TwoLineListItem>
+           	
+			 <TwoLineListItem
+	             xmlns:android="http://schemas.android.com/apk/res/android"
+	             android:id="@+id/view_list_twoitem4"
+	             android:layout_width="fill_parent"
+	             android:layout_height="wrap_content"
+	             android:layout_alignParentLeft="true"
+	             android:layout_below="@+id/offense_list_twoitem3"
+	             android:minHeight="?android:attr/listPreferredItemHeight"
+	             android:mode="oneLine"
+	             android:paddingBottom="2dip"
+	             android:paddingTop="2dip" >
+             
+             <org.gtri.objects.CustomToggle
+                 android:id="@+id/btnTrick"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_alignParentTop="true"
+                 android:layout_centerHorizontal="true"
+                 android:background="@drawable/custom_toggleoff"
+                 android:text="Trick Play"
+                 android:textColor="@color/White" />
+         </TwoLineListItem>
+         
+         
+         <Button
+             android:id="@+id/btnDefense"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentLeft="true"
+             android:layout_alignParentRight="true"
+             android:layout_below="@id/view_list_twoitem4"
+             android:background="@drawable/custom_button"
+             android:text="Defense"
+             android:layout_marginBottom="5dp"
+             android:textColor="@color/White" />
+
+         <Button
+             android:id="@+id/btnResult"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentLeft="true"
+             android:layout_alignParentRight="true"
+             android:layout_below="@id/btnDefense"
+             android:text="Result"
+             android:background="@drawable/custom_button"
+             android:textColor="@color/White" />
+         
+      </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/predict_footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/tes1t"
+            android:layout_weight="0" >
+            
+
+              <TwoLineListItem
+	             xmlns:android="http://schemas.android.com/apk/res/android"
+	             android:id="@+id/result_twoitem5"
+	             android:layout_width="fill_parent"
+	             android:layout_height="wrap_content"
+	             android:layout_alignParentLeft="true"
+	             android:layout_below="@+id/result_twoitem4"
+	             android:minHeight="?android:attr/listPreferredItemHeight"
+	             android:mode="oneLine"
+	             android:paddingBottom="2dip"
+	             android:paddingTop="2dip" >
+           	 
+               <Button
+                android:id="@+id/predict_btnHuddle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/custom_button"
+             	android:textColor="@color/White" 
+             	android:layout_marginRight="3dp"
+                android:text="Huddle" />
+
+            <Button
+                android:id="@+id/predict_btnAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@+id/predict_btnHuddle"
+                android:background="@drawable/custom_button"
+             	android:textColor="@color/White" 
+                android:text="All" />
+                  
+             </TwoLineListItem>
+            
+            <Button
+                android:id="@+id/predict_btnSubmit"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/result_twoitem5"
+                android:background="@drawable/custom_button"
+             	android:textColor="@color/White" 
+                android:text="Submit" />
+
+
+        </RelativeLayout>
+ </LinearLayout>
+</ScrollView>

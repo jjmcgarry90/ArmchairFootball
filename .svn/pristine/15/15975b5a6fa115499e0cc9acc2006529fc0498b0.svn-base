@@ -1,0 +1,49 @@
+package org.gtri.objects;
+
+import java.util.HashSet;
+
+public class Event {
+
+	private String name;
+	private EventType type;
+	private HashSet<Participant> participants;
+	
+	public enum EventType {
+		CollegeFootball,
+		ProFootball,
+		Tennis
+	}
+	
+	/*
+	 * A sporting event
+	 * Alabama vs Georgia College Football game at 3:00pm
+	 * Venus Williams vs Serena Williams
+	 */
+	public Event(String name, EventType type, HashSet<Participant> participants) {
+		this.name = name;
+		this.setType(type);
+		this.participants = participants;
+	}
+
+	public HashSet<Participant> getParticipants() {
+		return participants;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public EventType getType() {
+		return type;
+	}
+
+	public void setType(EventType type) {
+		this.type = type;
+	}
+	
+	
+}

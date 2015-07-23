@@ -1,0 +1,164 @@
+package org.gtri.espn.activities.main;
+
+import org.gtri.espn.R;
+import org.gtri.espn.activities.login.LoginScreenActivity;
+import org.gtri.helper.EspnApiHandler;
+import org.gtri.objects.Schedule;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.facebook.android.AsyncFacebookRunner;
+import com.facebook.android.Facebook;
+
+/*
+ * The launcher activity
+ * Tries to load user data
+ */
+public class MainActivity extends Activity {
+
+	// The application that holds all the global variables
+	private FanbookApplication context;
+	private final int MODE_PRIVATE = 0;
+
+	// Layout objects
+	private ImageView imageViewLogoESPN;
+	private TextView textViewTitle;
+	private RelativeLayout layout;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		
+		//workaround for login functionality
+		
+		if (isNetworkAvailable() == true) {
+			// Start a new thread that will download all the data
+			new LoadDataTask().execute();
+		} else {
+			// No Internet connection found
+			Toast.makeText(getBaseContext(), "No Internet Connection found", Toast.LENGTH_LONG).show();
+			ProgressBar pb = (ProgressBar) findViewById(R.id.progressBarLoad);
+			pb.setVisibility(ProgressBar.INVISIBLE);
+		}
+	}
+
+	/*
+	 * Check for Internet connectivity
+	 */
+	private boolean isNetworkAvailable() {
+		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo netInfo = cm.getActiveNetworkInfo();
+		if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+			return true;
+		}
+		return false;
+	}
+
+	/*
+	 * Runs the first time only
+	 */
+	public void firstRun() {
+		if (getFirstRun() == true) {
+			SharedPreferences.Editor ed = context.getPreferences().edit();
+			ed.putBoolean(getString(R.string.firstRun), false);
+			ed.putBoolean(getString(R.string.splashActive), true);
+			ed.putBoolean(getString(R.string.confirmQuit), true);
+			ed.putString(getString(R.string.settingsEmail), null);
+			ed.putString(getString(R.string.settingsUsername), null);
+			ed.putString(getString(R.string.settingsFavorite), null);
+			ed.commit();
+		}
+	}
+
+	/*
+	 * Get the firstRun setting
+	 */
+	private boolean getFirstRun() {
+		return context.getPreferences().getBoolean(getString(R.string.firstRun), true);
+	}
+
+	private void sendOnwards() {
+		if (context.getUser() == null) {
+			try {
+				Toast.makeText(this, "login failed" , Toast.LENGTH_LONG).show();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			goLogin();
+		} else {
+			goHome();
+		}
+	}
+
+	private void goHome() {
+		Intent intent = new Intent(getBaseContext(), HomeActivity.class);
+		startActivity(intent);
+		finish();
+	}
+
+	private void goLogin() {
+		Intent intent = new Intent(getBaseContext(), LoginScreenActivity.class);
+		startActivity(intent);
+		finish();
+	}
+
+	private class LoadDataTask extends AsyncTask<String, Void, Object> {
+		protected Object doInBackground(String... args) {
+
+			// Create context for global access
+			context = (FanbookApplication) getApplicationContext();
+
+			// Set user preferences
+			//context.setPreferences(getSharedPreferences(getString(R.string.preferences_file), MODE_PRIVATE));
+
+			// If no splash screen, remove certain elements from the layout
+			if (!context.getPreferences().getBoolean(getString(R.string.splashActive), true)) {
+				imageViewLogoESPN = (ImageView) findViewById(R.id.imageViewLogoESPN);
+				imageViewLogoESPN.setVisibility(ImageView.INVISIBLE);
+				textViewTitle = (TextView) findViewById(R.id.textViewTitle);
+				textViewTitle.setVisibility(TextView.INVISIBLE);
+				layout = (RelativeLayout) findViewById(R.id.RelativeLayout);
+				layout.setBackgroundDrawable(null);
+			}
+
+			// Setup the initial slate of games for the day
+			EspnApiHandler handler = new EspnApiHandler();
+			context.setHandler(handler);
+			context.setSchedule(new Schedule(handler));
+
+			// Set the facebook connection
+			context.setFacebook(new Facebook("133876126750992"));
+
+			// Used for logout
+			context.setRunner(new AsyncFacebookRunner(context.getFacebook()));
+
+			// Run the first time only
+			firstRun();
+
+			// Load all the user data
+			context.load();
+			
+			return null;
+		}
+
+		protected void onPostExecute(Object result) {
+			// Pass the result data back to the main activity
+			sendOnwards();
+		}
+
+	}
+
+}

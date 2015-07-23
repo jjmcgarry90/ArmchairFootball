@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="@dimen/padding_medium"
+    android:layout_marginBottom="5sp"
+    android:baselineAligned="false"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/linearLayoutFriends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/padding_small"
+        android:orientation="vertical" >
+
+        <ImageButton
+            android:id="@+id/buttonFriends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_menu_friendslist" />
+
+        <TextView
+            android:id="@+id/textViewFriends"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/friends" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayoutProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/linearLayoutFriends"
+        android:layout_marginRight="@dimen/padding_small"
+        android:orientation="vertical" >
+
+        <ImageButton
+            android:id="@+id/buttonProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_menu_account_list" />
+
+        <TextView
+            android:id="@+id/textViewProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/profile" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutTeams"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/linearLayoutFriends"
+        android:layout_marginLeft="@dimen/padding_small"
+        android:orientation="vertical" >
+
+        <ImageButton
+            android:id="@+id/buttonTeams"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_menu_allfriends" />
+
+        <TextView
+            android:id="@+id/textViewTeams"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/teams" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutGames"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/linearLayoutTeams"
+        android:layout_below="@+id/linearLayoutTeams"
+        android:layout_marginBottom="@dimen/padding_small"
+        android:layout_marginLeft="44dp"
+        android:layout_marginTop="21dp"
+        android:orientation="vertical" >
+
+        <ImageButton
+            android:id="@+id/buttonGames"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_menu_myplaces" />
+
+        <TextView
+            android:id="@+id/textViewGames"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/games" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/linearLayoutProfile"
+        android:layout_below="@+id/linearLayoutProfile"
+        android:layout_marginBottom="@dimen/padding_small"
+        android:layout_marginRight="44dp"
+        android:layout_marginTop="21dp"
+        android:orientation="vertical" >
+
+        <ImageButton
+            android:id="@+id/buttonSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_menu_manage" />
+
+        <TextView
+            android:id="@+id/textViewSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/settings" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/buttonCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/padding_small"
+        android:layout_marginTop="@dimen/padding_small"
+        android:background="@null"
+        android:src="@drawable/ic_menu_revert" />
+
+</RelativeLayout>

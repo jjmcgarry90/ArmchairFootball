@@ -1,0 +1,46 @@
+package org.gtri.espn.activities.main;
+
+import org.gtri.espn.R;
+//import org.gtri.espn.activities.general.ManageNewsfeedActivity;
+
+import android.app.Activity;
+import android.app.ActivityGroup;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.TabHost;
+import android.widget.TabHost.TabSpec;
+
+
+public class SettingsActivity2 extends ActivityGroup {
+
+	private FanbookApplication context;
+	private TabHost tabHost;
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.settings);
+		context = (FanbookApplication) getApplicationContext();
+		tabHost = (TabHost) findViewById(android.R.id.tabhost);
+		tabHost.setup(getLocalActivityManager());
+		
+		TabSpec tab1 = tabHost.newTabSpec("tab1");
+		//tab1.setIndicator("Newsfeed").setContent(new Intent(this, ManageNewsfeedActivity.class));
+		
+		TabSpec tab2 = tabHost.newTabSpec("tab2");
+		tab2.setIndicator("Profiles").setContent(new Intent(this, ProfileActivity.class));
+		
+		TabSpec tab3 = tabHost.newTabSpec("tab3");
+		tab3.setIndicator("Huddles").setContent(new Intent(this, ProfileActivity.class));
+		
+		try {
+			tabHost.addTab(tab1);
+			tabHost.addTab(tab2);
+			tabHost.addTab(tab3);
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+}

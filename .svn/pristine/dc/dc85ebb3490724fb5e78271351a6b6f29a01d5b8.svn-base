@@ -1,0 +1,6 @@
+// A list of the project information; should be deleted before release
+SVN server location = "http://eoslsvn.gtri.gatech.edu/svn/landmarc/Development/espn"
+Database URL = "eosldb.gtri.gatech.edu"
+Database Schema = "espn"
+Database User = "espn"
+Database Password = "GeorgiaTechESPN!"

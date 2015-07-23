@@ -1,0 +1,19 @@
+package org.gtri.espn.activities.main;
+
+import org.gtri.espn.R;
+
+import android.app.Activity;
+import android.os.Bundle;
+
+
+public class SettingsActivity2 extends Activity {
+
+	private FanbookApplication context;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.settings);
+		context = (FanbookApplication) getApplicationContext();
+	}
+}

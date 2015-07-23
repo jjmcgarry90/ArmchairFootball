@@ -1,0 +1,101 @@
+package org.gtri.espn;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+/*
+ * The user must enter a unique email to proceed
+ */
+public class LoginEmailActivity extends Activity {
+
+	public static String email = null;
+	private static final int CHOICE_CONNECT = 0;
+	private Button buttonCancel, buttonConnect;
+	private EditText editTextEmail;
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.layout_activity_login_email);
+
+		buttonCancel = (Button) findViewById(R.id.buttonCancel);
+		buttonCancel.setOnClickListener(cancelListener);
+
+		buttonConnect = (Button) findViewById(R.id.buttonConnect);
+		buttonConnect.setOnClickListener(connectListener);
+
+		editTextEmail = (EditText) findViewById(R.id.editTextEmail);
+		
+	}
+	
+	/*
+	 * Cancel
+	 */
+	private OnClickListener cancelListener = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			// Force to go back to login choice screen
+			setResult(RESULT_CANCELED);
+			finish();
+		}
+	};
+
+	/*
+	 * Connect
+	 */
+	private OnClickListener connectListener = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			email = editTextEmail.getText().toString();
+			if (isValidEmail(email)) {
+				Intent intent = new Intent(getBaseContext(), LoginUsernameActivity.class);
+				startActivityForResult(intent, CHOICE_CONNECT);
+			}
+		}
+	};
+	
+	/*
+	 * Checks validity of the email address
+	 */
+	private boolean isValidEmail(String str) {
+		// TODO - check string for validity (sql injections, formatting, etc.)
+		if (str == null || "".equals(str) || !str.contains("@")) {
+			Toast.makeText(getBaseContext(), "Invalid email address.", Toast.LENGTH_LONG).show();
+			return false;
+		}
+		// TODO - check database for uniqueness
+		if (!isUnique(str)) {
+			Toast.makeText(getBaseContext(), "Email already in use.", Toast.LENGTH_LONG).show();
+			return false;
+		}
+		return true;
+	}
+	
+	/*
+	 * Checks if an email is unique
+	 */
+	private boolean isUnique(String str) {
+		// TODO - query server for string uniqueness
+		return true;
+	}
+	
+	/*
+	 * On later activity results
+	 */
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+       if (requestCode == CHOICE_CONNECT) {
+        	if (resultCode == RESULT_OK) {
+        		// Finish and send results
+    			setResult(RESULT_OK);
+    			finish();
+            }
+        }
+    }
+
+}

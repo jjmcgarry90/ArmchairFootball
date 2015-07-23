@@ -1,0 +1,61 @@
+package org.gtri.objects;
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class Huddle {
+
+	private Set<User> members;
+	private Event event;
+	private String name;
+	private String append = " Huddle";
+	
+	/*
+	 * A group of users interacting for a particular event
+	 */
+	public Huddle(Event event) {
+		this.event = event;
+		this.setName(this.event.getName()+append);
+		this.members = new HashSet<User>();
+	}
+	
+	public Huddle(Event event, User founder) {
+		this.event = event;
+		this.setName(this.event.getName()+append);
+		this.members = new HashSet<User>();
+		addMember(founder);
+	}
+	
+	public void addMember(User newMember) {
+		members.add(newMember);
+	}
+	
+	public void addMembers(HashSet<User> newMembers) {
+		members.addAll(newMembers);
+	}
+
+	public Set<User> getMembers() {
+		return members;
+	}
+
+	public void setMembers(Set<User> members) {
+		this.members = members;
+	}
+
+	public Event getEvent() {
+		return event;
+	}
+
+	public void setEvent(Event event) {
+		this.event = event;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+}

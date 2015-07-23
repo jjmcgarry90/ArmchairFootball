@@ -1,0 +1,88 @@
+package org.gtri.helper;
+
+import java.net.URI;
+import java.util.ArrayList;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.gtri.objects.Athlete;
+import org.gtri.objects.Event;
+import org.gtri.objects.Participant;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import android.util.Log;
+
+public class EspnApiHandler {
+
+	private String base = "http://api.espn.com", apiKey = "xz32hwk6k9w6vdpv23vbvk3e", resultsLimit = "124";
+	private DefaultHttpClient client = new DefaultHttpClient();
+
+	public ArrayList<Participant> getTeams() {
+		ArrayList<Participant> teams = new ArrayList<Participant>();
+		// TODO use a json parser?
+		try {
+//			URI api = new URI(base + "/v1/sports/football/college-football/" + "teams?enable=venues&enable=stats&enable=roster&enable=leaders&apikey=" + apiKey
+//					+ "&limit=" + resultsLimit);
+			URI api = new URI(base + "/v1/sports/football/college-football/" + "teams?group=80&enable=groups,venues&apikey=" + apiKey
+					+ "&limit=" + resultsLimit);
+			HttpEntity entity = client.execute(new HttpGet(api)).getEntity();
+			JSONObject rawJSON = new JSONObject(EntityUtils.toString(entity));
+			JSONObject sports = rawJSON.getJSONArray("sports").getJSONObject(0);
+			JSONArray rawTeams = sports.getJSONArray("leagues").getJSONObject(0).getJSONArray("teams");
+			for (int i = 0; i < rawTeams.length(); i++) {
+
+				try {
+
+					// Basic team info
+					JSONObject rawTeam = rawTeams.getJSONObject(i);
+					String name = rawTeam.getString("location");
+					String mascot = rawTeam.getString("name");
+					String abbreviation = rawTeam.getString("abbreviation");
+					int id = rawTeam.getInt("id");
+					String conference = rawTeam.getJSONArray("groups").getJSONObject(0).getString("name");
+					int conferenceId = rawTeam.getJSONArray("groups").getJSONObject(0).getInt("groupId");
+					ArrayList<Athlete> roster = new ArrayList<Athlete>();
+					
+					// TODO - fill in roster information
+
+					// Location and Stadium Information
+					JSONObject stadiumInfo = rawTeam.getJSONArray("venues").getJSONObject(0);
+					String city = stadiumInfo.getString("city");
+					String state = stadiumInfo.getString("state");
+					String stadium = stadiumInfo.getString("name");
+
+					// Construct the Team
+					teams.add(new Participant(id, name, mascot, abbreviation, conferenceId, conference, city, state, stadium, roster));
+
+				} catch (Exception e) {
+					Log.d("JSON error.", e.toString());
+				}
+
+			}
+		} catch (Exception e) {
+			Log.v("Exception:", e.getMessage());
+		}
+		return teams;
+	}
+
+	/*
+	 * Return the schedules for the day's games
+	 */
+	public ArrayList<Event> getEvents() {
+		ArrayList<Event> games = new ArrayList<Event>();
+		//TODO: currently we don't have access to the "events" portion of the API
+//		try {
+//			//URI api = new URI(base + "/v1/sports/football/college-football/events" + "?apikey=" + apiKey + "&limit=" + resultsLimit);
+//			URI api = new URI(base + "/v1/sports/football/college-football/events" + "?apikey=" + apiKey + "&limit=" + "5");
+//			HttpEntity entity = client.execute(new HttpGet(api)).getEntity();
+//			JSONObject rawJSON = new JSONObject(EntityUtils.toString(entity));
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+		return games;
+	}
+
+}

@@ -1,0 +1,136 @@
+package org.gtri.espn;
+
+import org.gtri.helper.SessionStore;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+public class SettingsActivity extends Activity {
+
+	private Button buttonCancel, buttonApply, buttonLogout;
+	private CheckBox checkBoxConfirmExit, checkBoxSplashScreen;
+	private ArmchairQuarterbackApplication context;
+	private ImageView imageViewHeaderLogo;
+	
+	// Need access to the base activity to show alert dialog later
+	private Context settingsContext;
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.layout_activity_settings);
+		context = (ArmchairQuarterbackApplication) getApplicationContext();
+		settingsContext = this;
+		
+		imageViewHeaderLogo = (ImageView) findViewById(R.id.imageViewLogo);
+		imageViewHeaderLogo.setOnClickListener(logoHeaderListener);
+		
+		checkBoxConfirmExit = (CheckBox) findViewById(R.id.checkBoxConfirmExit);
+		checkBoxConfirmExit.setChecked(context.getPreferences().getBoolean(getString(R.string.confirmQuit), true));
+		checkBoxSplashScreen = (CheckBox) findViewById(R.id.checkBoxSplashScreen);
+		checkBoxSplashScreen.setChecked(context.getPreferences().getBoolean(getString(R.string.splashActive), true));
+		
+		buttonCancel = (Button) findViewById(R.id.buttonCancel);
+		buttonCancel.setOnClickListener(cancelListener);
+
+		buttonApply = (Button) findViewById(R.id.buttonApply);
+		buttonApply.setOnClickListener(applyListener);
+
+		buttonLogout = (Button) findViewById(R.id.buttonLogout);
+		buttonLogout.setOnClickListener(logoutListener);
+	}
+
+	/*
+	 * Home Logo and button
+	 */
+	private OnClickListener logoHeaderListener = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			// Back to home screen
+			setResult(RESULT_CANCELED);
+			finish();
+		}
+	};
+	
+	/*
+	 * Cancel
+	 */
+	private OnClickListener cancelListener = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			// Force to go back to login choice screen
+			setResult(RESULT_CANCELED);
+			finish();
+		}
+	};
+
+	/*
+	 * Apply
+	 */
+	private OnClickListener applyListener = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			saveSettings();
+			finish();
+		}
+
+	};
+
+	/*
+	 * Save all the user's changed settings
+	 */
+	private void saveSettings() {
+		// Save all the user's settings
+		SharedPreferences.Editor ed = context.getPreferences().edit();
+		ed.putBoolean(getString(R.string.splashActive), checkBoxSplashScreen.isChecked());
+		ed.putBoolean(getString(R.string.confirmQuit), checkBoxConfirmExit.isChecked());
+		ed.commit();
+	}
+
+	/*
+	 * Logout
+	 */
+	private OnClickListener logoutListener = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			// Ask the user if they want to quit
+			new AlertDialog.Builder(settingsContext).setIcon(android.R.drawable.ic_dialog_alert).setTitle(R.string.dialog_logout).setMessage(R.string.dialog_confirm_logout)
+					.setPositiveButton(R.string.dialog_positive, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							// logout, set result, close app
+							logout();
+							setResult(HomeActivity.RESULT_LOGOUT);
+							finish();
+						}
+					}).setNegativeButton(R.string.dialog_negative, null).show();
+		}
+
+	};
+
+	/*
+	 * Logout the current user and wipe preferences
+	 */
+	private void logout() {
+		// Wipes all user data from local device
+		SharedPreferences.Editor ed = context.getPreferences().edit();
+		ed.clear();
+		ed.commit();
+		SessionStore.clear(context);
+		try {
+			context.getFacebook().logout(context);
+		} catch (Exception e) {
+			Toast.makeText(getBaseContext(), "Error.", Toast.LENGTH_SHORT).show();
+		}
+	}
+
+}

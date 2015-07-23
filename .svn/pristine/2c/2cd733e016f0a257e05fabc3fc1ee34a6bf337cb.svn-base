@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- use the Android Light with no title bar theme as the base for our own no animation theme -->
+    <style name="AppTheme" parent="@android:style/Theme.Black.NoTitleBar">
+   
+        <!-- Disable window animations on transitions -->
+<!--         <item name="android:windowAnimationStyle">@null</item> -->
+   
+    </style>
+
+</resources>

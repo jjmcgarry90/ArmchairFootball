@@ -1,0 +1,76 @@
+package org.gtri.espn;
+
+import org.gtri.objects.Schedule;
+import org.gtri.objects.User;
+
+import android.app.Application;
+import android.content.SharedPreferences;
+import android.widget.Toast;
+
+import com.facebook.android.AsyncFacebookRunner;
+import com.facebook.android.Facebook;
+
+public class ArmchairQuarterbackApplication extends Application {
+
+	private Facebook facebook;
+	private SharedPreferences preferences;
+	private AsyncFacebookRunner runner;
+	private User user;
+	private Schedule schedule;
+
+	public void onResume() {
+		facebook.extendAccessTokenIfNeeded(this, null);
+	}
+
+	public Facebook getFacebook() {
+		return facebook;
+	}
+
+	public void setFacebook(Facebook facebook) {
+		this.facebook = facebook;
+	}
+
+	public AsyncFacebookRunner getRunner() {
+		return runner;
+	}
+
+	public void setRunner(AsyncFacebookRunner mAsyncRunner) {
+		this.runner = mAsyncRunner;
+	}
+
+	public SharedPreferences getPreferences() {
+		return preferences;
+	}
+
+	public void setPreferences(SharedPreferences preferences) {
+		this.preferences = preferences;
+	}
+
+	public void showToast(String message) {
+		Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+	}
+
+	public boolean isEmailSessionValid() {
+		if (this.getPreferences().getString(getString(R.string.settingsEmail), null) != null && this.getPreferences().getString(getString(R.string.settingsUsername), null) != null) {
+			return true;
+		}
+		return false;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Schedule getSchedule() {
+		return schedule;
+	}
+
+	public void setSchedule(Schedule schedule) {
+		this.schedule = schedule;
+	}
+
+}

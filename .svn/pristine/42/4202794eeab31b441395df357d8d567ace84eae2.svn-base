@@ -1,0 +1,27 @@
+package org.gtri.objects;
+
+import java.util.Set;
+
+import org.gtri.helper.ScheduleHelper;
+
+/*
+ * A particular day's lineup of events and games
+ * i.e. That Saturday's matchups
+ */
+public class Schedule {
+
+	private Set<Event> events;
+
+	public enum GenerationType {
+		STATIC, DYNAMIC
+	}
+
+	public Schedule(GenerationType type) {
+		this.events = new ScheduleHelper(type).generate();
+	}
+
+	public Set<Event> getEvents() {
+		return events;
+	}
+
+}

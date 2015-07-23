@@ -1,0 +1,37 @@
+package org.gtri.objects;
+
+public class Participant {
+
+	private String name;
+	private ParticipantType type;
+
+	public enum ParticipantType {
+		Team, Player
+	}
+
+	/*
+	 * A participant of a sporting event
+	 * Atlanta Falcons, Georgia Bulldogs, Serena Williams, etc.
+	 */
+	public Participant(String name, ParticipantType type) {
+		this.name = name;
+		this.setType(type);
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public ParticipantType getType() {
+		return type;
+	}
+
+	public void setType(ParticipantType type) {
+		this.type = type;
+	}
+
+}

@@ -1,0 +1,77 @@
+package org.gtri.espn;
+
+import java.util.ArrayList;
+
+import org.gtri.helper.FriendArrayAdapter;
+import org.gtri.objects.Friend;
+
+import android.app.ListActivity;
+import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListAdapter;
+
+public class FriendsActivity extends ListActivity implements OnItemClickListener, OnClickListener {
+	private ArmchairQuarterbackApplication context;
+	
+	protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        context = (ArmchairQuarterbackApplication)getApplicationContext();
+        setContentView(R.layout.layout_activity_friends);
+  
+        ArrayList<Friend> friendList = new ArrayList<Friend>();
+      
+        //mock data - will be replaced with data from server
+        friendList.add(new Friend(null, "Jessie McGarry", "online"));
+        friendList.add(new Friend(null, "Drew Norvell", "away"));
+        
+        ListAdapter adap = new FriendArrayAdapter(this, R.layout.layout_activity_friends, friendList);
+        setListAdapter(adap);
+        
+        registerForContextMenu(getListView());
+        registerForContextMenu(findViewById(R.id.add_friend));
+        
+        getListView().setOnItemClickListener(this);
+        findViewById(R.id.add_friend).setOnClickListener(this);
+    }
+	
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+	                                ContextMenuInfo menuInfo) {
+	    super.onCreateContextMenu(menu, v, menuInfo);
+	    MenuInflater inflater = getMenuInflater();
+	    if (getListView().getId() == v.getId())
+	    	inflater.inflate(R.menu.friend_menu, menu);
+	    else
+	    	inflater.inflate(R.menu.add_friend_menu, menu);
+	}
+	
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		//TODO implement
+	    AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+	    switch (item.getItemId()) {
+	    }
+	    return true;
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> adap, View view, int pos, long id) {
+		openContextMenu(view);
+	}
+
+	@Override
+	public void onClick(View view) {
+		openContextMenu(view);	
+	}	
+	
+	
+
+}

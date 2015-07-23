@@ -1,0 +1,75 @@
+package org.gtri.helper;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+
+import org.gtri.espn.activities.main.FanbookApplication;
+import org.gtri.objects.User;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.util.Log;
+
+import com.facebook.android.FacebookError;
+import com.facebook.android.Util;
+
+public class FacebookHelper {
+
+	/*
+	 * Help extract information form facebook
+	 */
+
+	private FanbookApplication context;
+
+	public FacebookHelper(FanbookApplication context) {
+		this.context = context;
+	}
+
+	public String getName() {
+		String _error = null;
+		try {
+			JSONObject json = Util.parseJson(context.getFacebook().request("me"));
+			String firstName = json.getString("first_name");
+			String lastName = json.getString("last_name");
+			return firstName + " " + lastName;
+		} catch (Exception error) {
+			_error = "Error retrieving data.";
+		}
+		if (_error != null) {
+			Log.d("Facebook Login error", _error.toString());
+		}
+		return null;
+	}
+
+	public ArrayList<User> getFriends() {
+		ArrayList<User> list = new ArrayList<User>();
+		String _error = null;
+		try {
+			JSONObject json;
+			try {
+				json = Util.parseJson(context.getFacebook().request("me/friends"));
+				final JSONArray friends = json.getJSONArray("data");
+				for (int i = 0; i < friends.length(); i++) {
+					String name = friends.getJSONObject(i).getString("name");
+					User temp = new User(name);
+					list.add(temp);
+				}
+			} catch (MalformedURLException e) {
+				_error = "JSON Error in response";
+			} catch (IOException e) {
+				_error = "JSON Error in response";
+			}
+		} catch (JSONException e) {
+			_error = "JSON Error in response";
+		} catch (FacebookError e) {
+			_error = "Facebook Error: " + e.getMessage();
+		}
+		if (_error != null) {
+			Log.d("Facebook Login error", _error.toString());
+		}
+		return list;
+	}
+
+}

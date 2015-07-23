@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/navigationBar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/White"
+    android:orientation="horizontal"
+    android:paddingTop="5dp" >
+
+    <Button
+        android:id="@+id/newsfeedButton"
+        android:layout_width="106dp"
+        android:layout_height="wrap_content"
+        android:text="Newsfeed" />
+
+    <Button
+        android:id="@+id/profileButton"
+        android:layout_width="107dp"
+        android:layout_height="wrap_content"
+        android:text="Profile" />
+
+    <Button
+        android:id="@+id/settingsButton"
+        android:layout_width="106dp"
+        android:layout_height="wrap_content"
+        android:text="Settings" />
+
+</LinearLayout>

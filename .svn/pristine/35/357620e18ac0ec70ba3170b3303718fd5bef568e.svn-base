@@ -1,0 +1,98 @@
+package org.gtri.espn.activities.main;
+
+import org.gtri.espn.R;
+import org.gtri.espn.activities.general.ParticipantInfoActivity;
+import org.gtri.objects.Participant;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.TextView;
+
+public class ProfileActivity extends Activity {
+
+	private FanbookApplication context;
+	private TextView textViewTitle, textViewTeamName;
+	private ProfileListAdapter adapter;
+	private ListView list;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_profile);
+		context = (FanbookApplication) getApplicationContext();
+
+		textViewTitle = (TextView) findViewById(R.id.textViewTitle);
+		textViewTitle.setText(context.getUser().getName() + "'s Profile");
+
+		textViewTeamName = (TextView) findViewById(R.id.textViewTeamName);
+		if (context.getUser().getFavorite() == null) {
+			textViewTeamName.setText("None");
+		} else {
+			textViewTeamName.setText(context.getUser().getFavorite().getFullName());
+		}
+		
+		adapter = new ProfileListAdapter();
+		list = (ListView) findViewById(R.id.listView);
+		list.setAdapter(adapter);
+
+		TextView emptyView = (TextView) findViewById(R.id.textViewEmpty);
+		list.setEmptyView(emptyView);
+	}
+
+	/*
+	 * Custom adapter class
+	 */
+	private class ProfileListAdapter extends ArrayAdapter<Participant> {
+
+		private ProfileListAdapter() {
+			super(ProfileActivity.this, R.layout.list_item_generic, context.getUser().getWatched());
+		}
+
+		public View getView(final int position, View convertView, ViewGroup parent) {
+			View row;
+			if (convertView == null) {
+				LayoutInflater inflater = getLayoutInflater();
+				row = inflater.inflate(R.layout.list_item_generic, parent, false);
+			} else {
+				row = convertView;
+			}
+			TextView tv = (TextView) row.findViewById(R.id.text);
+			tv.setText(getItem(position).getName());
+			tv.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(getBaseContext(), ParticipantInfoActivity.class);
+					intent.putExtra("participant", getItem(position));
+					startActivity(intent);
+				}
+			});
+			ImageButton btn = (ImageButton) row.findViewById(R.id.button);
+			btn.setImageResource(R.drawable.ic_menu_block);
+			btn.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					context.getUser().removeWatched(getItem(position));
+					adapter.notifyDataSetChanged();
+				}
+			});
+			return row;
+		}
+	}
+
+	/*
+	 * Force reload of screen data
+	 */
+	protected void onResume() {
+		super.onResume();
+		adapter.notifyDataSetChanged();
+	}
+
+}

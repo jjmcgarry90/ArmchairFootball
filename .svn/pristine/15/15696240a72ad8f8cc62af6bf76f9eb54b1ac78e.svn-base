@@ -1,0 +1,198 @@
+package org.gtri.espn;
+
+import org.gtri.helper.SessionStore;
+import org.gtri.objects.Schedule;
+import org.gtri.objects.Schedule.GenerationType;
+import org.gtri.objects.User;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.KeyEvent;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.facebook.android.AsyncFacebookRunner;
+import com.facebook.android.Facebook;
+
+/*
+ * The launcher activity
+ * Tries to load user data
+ */
+public class MainActivity extends Activity {
+
+	// The application that holds all the global variables
+	private ArmchairQuarterbackApplication context;
+	private final int MODE_PRIVATE = 0;
+
+	// Splash screen params
+	private long ms = 0;
+	private long splashTime = 2000;
+	private boolean paused = false;
+
+	// Layout objects
+	private ImageView imageViewLogoESPN;
+	private TextView textViewTitle;
+	private ProgressBar progressBar;
+	private RelativeLayout layout;
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.layout_activity_main);
+
+		// Create context for global access
+		context = (ArmchairQuarterbackApplication) getApplicationContext();
+		// Set user preferences
+		context.setPreferences(getSharedPreferences(getString(R.string.preferences_file), MODE_PRIVATE));
+				
+		// If no splash screen, remove certain elements from the layout
+		if (!context.getPreferences().getBoolean(getString(R.string.splashActive), true)) {
+			imageViewLogoESPN = (ImageView) findViewById(R.id.imageViewLogoESPN);
+			imageViewLogoESPN.setVisibility(ImageView.INVISIBLE);
+			textViewTitle = (TextView) findViewById(R.id.textViewTitle);
+			textViewTitle.setVisibility(TextView.INVISIBLE);
+			progressBar = (ProgressBar) findViewById(R.id.progressBarLoad);
+			progressBar.setVisibility(ProgressBar.INVISIBLE);
+			layout = (RelativeLayout) findViewById(R.id.RelativeLayout);
+			layout.setBackgroundDrawable(null);
+		}
+		
+		// Setup the initial slate of games for the day
+		context.setSchedule(new Schedule(GenerationType.STATIC));
+		
+		// Set the facebook connection
+		context.setFacebook(new Facebook("133876126750992"));
+		// Used for logout
+		context.setRunner(new AsyncFacebookRunner(context.getFacebook()));
+		
+
+		// Run the first time only
+		if (getFirstRun()) {
+			SharedPreferences.Editor ed = context.getPreferences().edit();
+			ed.putBoolean(getString(R.string.firstRun), false);
+			ed.putBoolean(getString(R.string.splashActive), true);
+			ed.putBoolean(getString(R.string.confirmQuit), true);
+			ed.putString(getString(R.string.settingsEmail), null);
+			ed.putString(getString(R.string.settingsUsername), null);
+			ed.commit();
+		}
+
+		// Splash Screen
+		Thread mythread = new Thread() {
+			public void run() {
+				try {
+					while (context.getPreferences().getBoolean(getString(R.string.splashActive), true) && ms < splashTime) {
+						if (!paused) {
+							ms += 100;
+						}
+						sleep(100);
+					}
+				} catch (Exception e) {
+				} finally {
+					load();
+				}
+			}
+		};
+		mythread.start();
+	}
+
+	/*
+	 * Get the firstRun setting
+	 */
+	private boolean getFirstRun() {
+		return context.getPreferences().getBoolean(getString(R.string.firstRun), true);
+	}
+
+	/*
+	 * Override back button for confirmed exit
+	 */
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// Handle the back button
+		if (context.getPreferences().getBoolean(getString(R.string.confirmQuit), true) && keyCode == KeyEvent.KEYCODE_BACK) {
+			finish();
+			return true;
+		} else {
+			return super.onKeyDown(keyCode, event);
+		}
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		paused = true;
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		context.onResume();
+		paused = false;
+	}
+
+	/*
+	 * Attempt to load from local memory
+	 */
+	private void load() {
+		/*
+		 * 3 options - checked in this order:
+		 * Facebook Data authorized
+		 * Email data
+		 * No data
+		 */
+		if (checkFacebookData() == true) {
+			// Facebook data
+			context.setUser(new User());
+			goHome();
+		} else {
+			if (checkEmailData() == true) {
+				// Email data
+				context.setUser(new User(
+						context.getPreferences().getString(getString(R.string.settingsEmail), null),
+						context.getPreferences().getString(getString(R.string.settingsUsername), null)
+						));
+				goHome();
+			} else {
+				// no data, so go to login screen
+				goLogin();
+			}
+		}
+	}
+
+	private void goHome() {
+		Intent intent = new Intent(getBaseContext(), HomeActivity.class);
+		startActivity(intent);
+		finish();
+	}
+
+	private void goLogin() {
+		Intent intent = new Intent(getBaseContext(), LoginScreenActivity.class);
+		startActivity(intent);
+		finish();
+	}
+
+	/*
+	 * Determine if previous saved facebook data on device
+	 * return true if data is found
+	 * return false if invalid data is found
+	 * return null if not data is found
+	 */
+	private Boolean checkFacebookData() {
+		SessionStore.restore(context.getFacebook(), this);
+		return context.getFacebook().isSessionValid();
+	}
+
+	/*
+	 * Determine if previous saved email data on device
+	 * return true if data is found
+	 * return false if no data is found
+	 */
+	private boolean checkEmailData() {
+		return context.isEmailSessionValid();
+	}
+
+}

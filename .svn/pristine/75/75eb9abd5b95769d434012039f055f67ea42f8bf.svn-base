@@ -1,0 +1,70 @@
+package org.gtri.helper;
+
+import java.util.HashSet;
+
+import org.gtri.objects.Event;
+import org.gtri.objects.Event.EventType;
+import org.gtri.objects.Participant;
+import org.gtri.objects.Participant.ParticipantType;
+import org.gtri.objects.Schedule.GenerationType;
+
+public class ScheduleHelper {
+
+	private HashSet<Event> events;
+
+	public ScheduleHelper(GenerationType type) {
+		events = new HashSet<Event>();
+		if (type.equals(GenerationType.STATIC)) {
+			// Static preset list of games for testing
+			eventsCreate();
+		} else {
+			// Dynamic generation of list of games
+			eventsLoad();
+		}
+	}
+
+	public HashSet<Event> generate() {
+		return events;
+	}
+
+	/*
+	 * Load events dynamically
+	 */
+	private void eventsLoad() {
+		// TODO - dynamically generate list of games
+	}
+
+	/*
+	 * Create list of events
+	 */
+	private void eventsCreate() {
+		// Fake data sets
+		HashSet<Participant> participants1 = new HashSet<Participant>();
+		Participant participant1 = new Participant("Georgia Tech", ParticipantType.Team);
+		Participant participant2 = new Participant("UGA", ParticipantType.Team);
+		participants1.add(participant1);
+		participants1.add(participant2);
+		HashSet<Participant> participants2 = new HashSet<Participant>();
+		Participant participant3 = new Participant("Alabama", ParticipantType.Team);
+		participants2.add(participant1);
+		participants2.add(participant3);
+		
+		events.add(new Event(name(participants1), EventType.CollegeFootball, participants1));
+		events.add(new Event(name(participants2), EventType.CollegeFootball, participants2));
+	}
+	
+	private String name(HashSet<Participant> teams) {
+		String str = "";
+		if (teams.size() == 2) {
+			boolean first = true;
+			for (Participant team: teams) {
+				str += team.getName();
+				if (first == true) {
+					str += " vs. ";
+					first = false;
+				}
+			}
+		}
+		return str;
+	}
+}

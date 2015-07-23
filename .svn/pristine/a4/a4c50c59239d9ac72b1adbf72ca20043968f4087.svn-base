@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+ <LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:orientation="vertical"
+     android:paddingLeft="8dp"
+     android:background="@color/White"
+     android:paddingRight="8dp" >
+         
+	<RelativeLayout
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentTop="true">
+
+         <Button
+             android:id="@+id/predict_btnCancel"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentLeft="true"
+             android:layout_alignParentTop="true"
+             android:text="Cancel" />
+
+         <TextView
+             android:id="@+id/text_Predict"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_centerVertical="true"
+             android:layout_toRightOf="@+id/predict_btnCancel"
+             android:text="Play Prediction" />
+
+     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/RelativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0" >
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentTop="true" >
+
+            <ImageButton
+                android:id="@+id/ImageButton01"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:adjustViewBounds="false"
+                android:scaleType="fitXY"/>
+               <!--   android:src="@drawable/profiledefault"/>-->
+
+            <EditText
+                android:id="@+id/comment_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/ImageButton01"
+                android:contentDescription="@string/login_enter_email"
+                android:ems="10"
+                android:hint="@string/predict_comment"
+                android:inputType="text" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/predict_relative"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/RelativeLayout2"
+            android:layout_weight="0" >
+            
+        <Button
+            android:id="@+id/btnOffense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/comment_editText"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/White"
+            android:background="@drawable/custom_button"
+            android:text="Offense"
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
+        
+         <Button
+             android:id="@+id/btnDefense"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentLeft="true"
+             android:layout_alignParentRight="true"
+             android:layout_below="@+id/btnOffense"
+             android:textColor="@color/White"
+             android:background="@drawable/custom_button"
+             android:textAppearance="?android:attr/textAppearanceLarge"
+             android:text="Defense"/>
+        
+         <Button
+             android:id="@+id/btnResult"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentLeft="true"
+             android:layout_alignParentRight="true"
+             android:layout_below="@+id/btnDefense"
+             android:textColor="@color/White"
+             android:background="@drawable/custom_button"
+             android:textAppearance="?android:attr/textAppearanceLarge"
+             android:text="Result"/>
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/predict_footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/predict_relative"
+            android:layout_weight="0" >
+            
+            <Button
+                android:id="@+id/predict_btnSubmit"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:text="Submit" />
+
+            <Button
+                android:id="@+id/predict_btnHuddle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/predict_btnSubmit"
+                android:layout_alignParentLeft="true"
+                android:text="Huddle" />
+
+            <Button
+                android:id="@+id/predict_btnAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/predict_btnSubmit"
+                android:layout_toRightOf="@+id/predict_btnHuddle"
+                android:text="All" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+ </LinearLayout>

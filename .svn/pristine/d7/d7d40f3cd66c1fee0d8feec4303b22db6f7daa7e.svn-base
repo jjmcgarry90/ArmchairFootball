@@ -1,0 +1,134 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    
+    <LinearLayout
+        android:id="@+id/profileTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1.0" 
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/profileImage"
+            android:layout_width="80dp"
+			android:layout_height="80dp"
+			android:layout_marginTop="@dimen/padding_small" />
+        
+        <LinearLayout 
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+        <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_small"
+        android:text="@string/none"
+        android:textSize="@dimen/font_title" />
+        <Button 
+            android:id="@+id/logOutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="log out" />
+        
+        </LinearLayout>
+        
+
+    </LinearLayout>
+    
+    
+
+    <View
+        android:id="@+id/dividerBase"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_margin="@dimen/padding_small"
+        android:layout_marginBottom="@dimen/padding_small"
+        android:background="#ffffff" />
+	<Button 
+	    android:text="View Friends"
+	    android:id="@+id/viewFriendsButton"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content" />
+	
+	<Button 
+	    android:text="View Huddles"
+	    android:id="@+id/viewHuddlesButton"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/textViewSubtitleFavorite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_small"
+        android:gravity="center"
+        android:text="@string/favorite"
+        android:textSize="@dimen/font_subtitle" />
+
+    <View
+        android:id="@+id/dividerFavorite"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="@dimen/padding_xsmall"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/padding_small"
+        android:background="#ffffff" />
+
+    <TextView
+        android:id="@+id/textViewTeamName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_small"
+        android:gravity="center"
+        android:text="@string/none_literal"
+        android:textSize="@dimen/font_subtitle" />
+
+    <View
+        android:id="@+id/dividerMiddle"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_margin="@dimen/padding_small"
+        android:layout_marginBottom="@dimen/padding_small"
+        android:background="#ffffff" />
+
+    <TextView
+        android:id="@+id/textViewSubtitleFavorites"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_small"
+        android:gravity="center"
+        android:text="@string/watched_teams"
+        android:textSize="@dimen/font_subtitle" />
+
+    <View
+        android:id="@+id/dividerFavorites"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="@dimen/padding_xsmall"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/padding_small"
+        android:background="#ffffff" />
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+
+    <TextView
+        android:id="@+id/textViewEmpty"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="@dimen/padding_medium"
+        android:gravity="center"
+        android:text="@string/list_empty_watched" />
+
+</LinearLayout>

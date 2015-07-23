@@ -1,0 +1,103 @@
+package org.gtri.objects;
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class User {
+
+	private String email, username;
+	private LoginType loginType;
+	
+	private Set<Huddle> listHuddles;
+	private Set<User> listFriends;
+	private Set<Group> listGroups;
+	private Set<Participant> listFavorites;
+	
+	public enum LoginType {
+		FacebookLogin,
+		EmailLogin
+	}
+	
+	/*
+	 * Facebook constructor
+	 */
+	public User() {
+		this.email = null;
+		this.username = null;
+		this.loginType = LoginType.FacebookLogin;
+		setup();
+	}
+
+	/*
+	 * Email/Username constructor
+	 */
+	public User(String email, String username) {
+		this.email = email;
+		this.username = username;
+		this.loginType = LoginType.EmailLogin;
+		setup();
+	}
+	
+	private void setup() {
+		listHuddles = new HashSet<Huddle>();
+		listFriends = new HashSet<User>();
+		listFavorites = new HashSet<Participant>();
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public LoginType getLoginType() {
+		return loginType;
+	}
+
+	public void setLoginType(LoginType loginType) {
+		this.loginType = loginType;
+	}
+
+	public Set<Huddle> getCurrentHuddles() {
+		return listHuddles;
+	}
+	
+	public void addHuddle(Huddle huddle) {
+		listHuddles.add(huddle);
+	}
+
+	public Set<User> getFriendsList() {
+		return listFriends;
+	}
+	
+	public void addFriend(User user) {
+		listFriends.add(user);
+	}
+
+	public Set<Participant> getFavorites() {
+		return listFavorites;
+	}
+	
+	public void addFavorite(Participant participant) {
+		listFavorites.add(participant);
+	}
+	
+	public Set<Group> getGroups() {
+		return listGroups;
+	}
+	
+	public void addGroup(Group group) {
+		listGroups.add(group);
+	}
+
+}

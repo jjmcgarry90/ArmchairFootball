@@ -1,0 +1,32 @@
+package org.gtri.objects;
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class Group {
+
+	private String name;
+	private Set<User> members;
+
+	public Group(String name) {
+		this.name = name;
+		this.members = new HashSet<User>();
+	}
+	
+	public void addMember(User user) {
+		members.add(user);
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Set<User> getMembers() {
+		return members;
+	}
+
+}
